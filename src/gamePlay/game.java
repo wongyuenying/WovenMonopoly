@@ -1,13 +1,12 @@
 package gamePlay;
 
-import java.util.Comparator;
 import java.util.List;
 
 import model.Board;
 import model.Dice;
+import model.Go;
 import model.Player;
 import model.Property;
-import model.Go;
 
 public class Game {
 	private List<Player> players;
@@ -36,7 +35,7 @@ public class Game {
 
 		}
 		declareResult();
-		
+
 	}
 
 	private void playTurn(Player player) {
@@ -50,7 +49,7 @@ public class Game {
 			player.receiveRent(1);
 			System.out.println("Player "+ player.getName() + "just passed Go.");
 		}
-		
+
 		Object currentTile = board.getTile(player.getPosition());
 
 		if (currentTile instanceof Property) {
@@ -86,7 +85,7 @@ public class Game {
 
 		return false;
 	}
-	
+
 	private void declareResult() {
 		int max = 0;
 		Player winner = null;
@@ -104,23 +103,23 @@ public class Game {
         } else {
             System.out.println("There is no winner for this game.");
         }
-		
+
 		System.out.println("\nFinal Results:");
-		
+
 		for(Player player: players) {
-			
+
 			Object currentTile = board.getTile(player.getPosition());
 	        String positionName=null;
-	        
+
 	        if (currentTile instanceof Property) {
 	            positionName = ((Property) currentTile).getName();
-	            
+
 	        } else if (currentTile instanceof Go) {
 	            positionName = "GO";
 	        }
 			System.out.println(player.getName()+": "+ player.getMoney() + ", Finishes on: " + positionName);
 		}
-		
+
 	}
 
 }

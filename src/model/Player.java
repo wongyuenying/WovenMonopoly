@@ -6,10 +6,12 @@ public class Player {
 	private int money;
 	private int position;
 	private boolean isBankrupt;
+	private final int startingMoney;
 
 	public Player(String name, int money) {
 		this.name = name;
 		this.money = money;
+		this.startingMoney = money;
 		this.position = 0;
 		this.isBankrupt = false;
 	}
@@ -36,6 +38,12 @@ public class Player {
 
 	public boolean isBankrupt() {
 		return isBankrupt;
+	}
+
+	public void reset() {
+		this.money = startingMoney;
+        this.position = 0;
+        this.isBankrupt = false;
 	}
 
 	public void move(int steps, int boardSize) {

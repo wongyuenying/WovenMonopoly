@@ -11,7 +11,7 @@ public class Dice {
 	private Queue<Integer> rolls;
 
 	//Queue<Integer> rollData
-	
+
 	public Dice(String filepath) {
 		List<Integer> rollData = Loader.loadRolls(filepath);
 		this.rolls = new LinkedList<>(rollData);
