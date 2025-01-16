@@ -8,12 +8,14 @@ import model.Go;
 import model.Player;
 import model.Property;
 
+// This class manages the flow of the game.
 public class Game {
 	private List<Player> players;
 	private Board board;
 	private Dice dice;
 	private String gameName;
 
+	// Initialize the game.
 	public Game(List<Player> players, Board board, Dice dice, String gameName) {
 		this.players = players;
 		this.board = board;
@@ -21,14 +23,16 @@ public class Game {
 		this.gameName = gameName;
 	}
 
+	// Start the game until someone is bankrupt
 	public void start() {
 		while (!isGameOver()) {
-
 			for (Player player : players) {
 				playTurn(player);
 				System.out.println(player.getName() + ": " + player.getMoney());
+				
 				// Check is the player bankrupt after each turn, end if it is.
 				if (isGameOver()) {
+					System.out.println("end game now");
 					break;
 				}
 			}
@@ -70,7 +74,8 @@ public class Game {
 
 			// Pay rental if the property is not owned by the player
 			else if (property.isOwned() && property.getOwner() != player) {
-				property.payRent(player, board);
+				property.rentalTransaction(player, board);
+			
 				System.out.println(player.getName() + " just paid " + property.getOwner().getName());
 			}
 
@@ -82,7 +87,7 @@ public class Game {
 		// Loop through all the players to see if any players are bankrupt.
 		for (Player player : players) {
 			if (player.isBankrupt()) {
-				System.out.println(player.getName() + "went bankrupt");
+				System.out.println(player.getName() + " went bankrupt");
 				return true;
 			}
 		}
