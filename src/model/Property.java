@@ -1,6 +1,6 @@
 package model;
 
-public class Property extends Tile{
+public class Property extends Tile {
 
 	private int price;
 	private String color;
@@ -21,8 +21,12 @@ public class Property extends Tile{
 		return color;
 	}
 
+	public Player getOwner() {
+		return owner;
+	}
+
 	public boolean isOwned() {
-		return owner!=null;
+		return owner != null;
 	}
 
 	public void buyProperty(Player player) {
@@ -30,9 +34,9 @@ public class Property extends Tile{
 	}
 
 	public void payRent(Player player) {
-		if(owner!= player) {
+		if (owner != player) {
 
-			//***add logic if own the same colors later***
+			// ***add logic if own the same colors later***
 
 			player.payRent(price);
 			owner.receiveRent(price);
