@@ -1,21 +1,16 @@
 package model;
 
-public class Property {
+public class Property extends Tile{
 
-	private String name;
 	private int price;
 	private String color;
 	private Player owner;
 
 	public Property(String name, int price, String color) {
-		this.name = name;
+		super(name);
 		this.price = price;
 		this.color = color;
 		this.owner = null;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public int getPrice() {
