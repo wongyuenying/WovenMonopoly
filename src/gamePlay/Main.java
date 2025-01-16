@@ -1,6 +1,8 @@
 package gamePlay;
 
 import fileLoader.Loader;
+import model.Board;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +10,10 @@ public class Main {
 	
 	public static void main(String args[]) {
 		
-		List<Map<String, Object>> board = Loader.loadBoard("board.json");
-		List<Integer> rolls = Loader.loadRolls("rolls_1.json");
-		 System.out.println("Board: " + board);
-		 System.out.println("Roll: " + rolls);
+		Board board = new Board("board.json");
+		 System.out.println("Board Size: " + board.getBoardSize());
+		 System.out.println("Board Tile; " + board.getTile(2).getName());
+
 	}
 	
 	
