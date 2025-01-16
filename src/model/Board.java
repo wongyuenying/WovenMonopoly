@@ -38,7 +38,7 @@ public class Board {
 
 		case "property":
 			return new Property((String) tileData.get("name"), (int) tileData.get("price"),
-					(String) tileData.get("color"));
+					(String) tileData.get("colour"));
 
 		default:
 			throw new RuntimeException("Unable to identity the type of tile.");
@@ -52,6 +52,18 @@ public class Board {
 
 	public int getBoardSize() {
 		return tiles.size();
+	}
+	
+	public boolean ownSameColor(Player player, String color) {
+		for (Tile tile : tiles) {
+			if(tile instanceof Property) {
+				Property property = (Property) tile;
+				if(property.getColour().equals(color) && property.getOwner() != player) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 }

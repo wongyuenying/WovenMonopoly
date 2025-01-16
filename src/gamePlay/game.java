@@ -64,7 +64,7 @@ public class Game {
 
 			// Pay rental if the property is not owned by the player
 			else if (property.isOwned() && property.getOwner() != player) {
-				property.payRent(player);
+				property.payRent(player, board);
 			}
 
 		}

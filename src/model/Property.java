@@ -3,13 +3,13 @@ package model;
 public class Property extends Tile {
 
 	private int price;
-	private String color;
+	private String colour;
 	private Player owner;
 
-	public Property(String name, int price, String color) {
+	public Property(String name, int price, String colour) {
 		super(name);
 		this.price = price;
-		this.color = color;
+		this.colour = colour;
 		this.owner = null;
 	}
 
@@ -17,8 +17,8 @@ public class Property extends Tile {
 		return price;
 	}
 
-	public String getColor() {
-		return color;
+	public String getColour() {
+		return colour;
 	}
 
 	public Player getOwner() {
@@ -33,13 +33,15 @@ public class Property extends Tile {
 		owner = player;
 	}
 
-	public void payRent(Player player) {
+	public void payRent(Player player, Board board) {
 		if (owner != player) {
-
+			int rent = price;
 			// ***add logic if own the same colors later***
-
-			player.payRent(price);
-			owner.receiveRent(price);
+			if(board.ownSameColor(owner, colour)) {
+				player.payRent(rent*=2);
+			}
+			else player.payRent(rent);
+			owner.receiveRent(rent);
 		}
 	}
 
