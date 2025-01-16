@@ -8,14 +8,13 @@ import model.Go;
 import model.Player;
 import model.Property;
 
-// This class manages the flow of the game.
+// Manages the flow of the game
 public class Game {
 	private List<Player> players;
 	private Board board;
 	private Dice dice;
 	private String gameName;
 
-	// Initialize the game.
 	public Game(List<Player> players, Board board, Dice dice, String gameName) {
 		this.players = players;
 		this.board = board;
@@ -29,15 +28,15 @@ public class Game {
 			for (Player player : players) {
 				playTurn(player);
 				System.out.println(player.getName() + ": " + player.getMoney());
-				
+
 				// Check is the player bankrupt after each turn, end if it is.
 				if (isGameOver()) {
 					System.out.println("end game now");
 					break;
 				}
 			}
-
 		}
+
 		declareResult();
 
 	}
@@ -48,24 +47,24 @@ public class Game {
 		int roll = dice.roll();
 		player.move(roll, board.getBoardSize());
 
-		System.out.println(player.getName() + " old position: "+ initialPosition);
-		System.out.println(player.getName() + " new position: "+ player.getPosition());
+		System.out.println(player.getName() + " old position: " + initialPosition);
+		System.out.println(player.getName() + " new position: " + player.getPosition());
 
-
-		// Check if the player pass Go
+		// Check if the player pass Go and receive $1 if so
 		if (player.getPosition() < initialPosition) {
-			
 			player.receiveRent(1);
-			System.out.println("Player "+ player.getName() + "just passed Go.");
+			System.out.println("Player " + player.getName() + "just passed Go.");
 		}
 
+		// store the tile that the player stepped on as an object first
 		Object currentTile = board.getTile(player.getPosition());
 
+		// Check if the tile is a property or Go
 		if (currentTile instanceof Property) {
 
 			Property property = (Property) currentTile;
 
-			// Buy the property is it is not owned and there is enough money for the player
+			// Buy the property if it is not owned and there is enough money for the player
 			// to buy it.
 			if (!property.isOwned() && player.getMoney() >= property.getPrice()) {
 				property.buyProperty(player);
@@ -75,7 +74,7 @@ public class Game {
 			// Pay rental if the property is not owned by the player
 			else if (property.isOwned() && property.getOwner() != player) {
 				property.rentalTransaction(player, board);
-			
+
 				System.out.println(player.getName() + " just paid " + property.getOwner().getName());
 			}
 
@@ -99,38 +98,46 @@ public class Game {
 		return false;
 	}
 
+	// Print out the final results of the game
 	private void declareResult() {
 		int max = 0;
 		Player winner = null;
-		for(Player player: players) {
-			if(!player.isBankrupt() && player.getMoney() > max) {
+
+		// Loop through all the players and see who has the most amount of money
+		for (Player player : players) {
+			if (!player.isBankrupt() && player.getMoney() > max) {
 				max = player.getMoney();
 				winner = player;
 			}
-			else if(player.getMoney()== max) {
+
+			// No winner if there is a tie
+			else if (player.getMoney() == max) {
 				winner = null;
 			}
 		}
-		if (winner != null) {
-            System.out.println("\nWinner of " + gameName + ":" + winner.getName());
-        } else {
-            System.out.println("There is no winner for this game.");
-        }
 
+		// Print out the winner if there is any
+		if (winner != null) {
+			System.out.println("\nWinner of " + gameName + ":" + winner.getName());
+		} else {
+			System.out.println("There is no winner for this game.");
+		}
+
+		// Print out where all the players are standing and how much do they left
 		System.out.println("\nFinal Results:");
 
-		for(Player player: players) {
+		for (Player player : players) {
 
 			Object currentTile = board.getTile(player.getPosition());
-	        String positionName=null;
+			String positionName = null;
 
-	        if (currentTile instanceof Property) {
-	            positionName = ((Property) currentTile).getName();
+			if (currentTile instanceof Property) {
+				positionName = ((Property) currentTile).getName();
 
-	        } else if (currentTile instanceof Go) {
-	            positionName = "GO";
-	        }
-			System.out.println(player.getName()+": "+ player.getMoney() + ", Finishes on: " + positionName);
+			} else if (currentTile instanceof Go) {
+				positionName = "GO";
+			}
+			System.out.println(player.getName() + ": " + player.getMoney() + ", Finishes on: " + positionName);
 		}
 
 	}

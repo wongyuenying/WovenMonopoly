@@ -3,9 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import fileLoader.Loader;
 
+// This class manages the board data
 public class Board {
 	private List<Tile> tiles;
 
@@ -19,7 +19,6 @@ public class Board {
 		List<Map<String, Object>> fileData = Loader.loadBoard(filepath);
 
 		// Map through the board file data and crete tiles based on the types.
-
 		for (Map<String, Object> tileData : fileData) {
 			String type = (String) tileData.get("type");
 			Tile tile = initializeTiles(type, tileData);
@@ -28,7 +27,6 @@ public class Board {
 	}
 
 	// Create the tiles based on the type
-
 	private Tile initializeTiles(String type, Map<String, Object> tileData) {
 
 		switch (type) {
@@ -54,6 +52,8 @@ public class Board {
 		return tiles.size();
 	}
 	
+	
+	// Return true if the owner owns all property of the same colour
 	public boolean ownSameColor(Player player, String color) {
 		for (Tile tile : tiles) {
 			if(tile instanceof Property) {

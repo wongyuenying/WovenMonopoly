@@ -1,7 +1,7 @@
 package model;
 
+// This class represents a property object, subclass of a Tile
 public class Property extends Tile {
-
 	private int price;
 	private String colour;
 	private Player owner;
@@ -36,9 +36,9 @@ public class Property extends Tile {
 
 	public void rentalTransaction(Player player, Board board) {
 		if (owner != player) {
-			
+
 			int rent = price;
-		
+
 			// Pay double remt if the owner own all properties of the same colour.
 			if (board.ownSameColor(owner, colour)) {
 				player.payRent(rent *= 2);
@@ -46,6 +46,8 @@ public class Property extends Tile {
 			} else {
 				player.payRent(rent);
 			}
+
+			// Owner of the property receives the rental
 			owner.receiveRent(rent);
 		}
 	}
