@@ -26,7 +26,7 @@ public class Game {
 
 			for (Player player : players) {
 				playTurn(player);
-
+				System.out.println(player.getName() + ": " + player.getMoney());
 				// Check is the player bankrupt after each turn, end if it is.
 				if (isGameOver()) {
 					break;
@@ -44,8 +44,13 @@ public class Game {
 		int roll = dice.roll();
 		player.move(roll, board.getBoardSize());
 
+		System.out.println(player.getName() + " old position: "+ initialPosition);
+		System.out.println(player.getName() + " new position: "+ player.getPosition());
+
+
 		// Check if the player pass Go
 		if (player.getPosition() < initialPosition) {
+			
 			player.receiveRent(1);
 			System.out.println("Player "+ player.getName() + "just passed Go.");
 		}
@@ -60,11 +65,13 @@ public class Game {
 			// to buy it.
 			if (!property.isOwned() && player.getMoney() >= property.getPrice()) {
 				property.buyProperty(player);
+				System.out.println(player.getName() + " just bought " + property.getName());
 			}
 
 			// Pay rental if the property is not owned by the player
 			else if (property.isOwned() && property.getOwner() != player) {
 				property.payRent(player, board);
+				System.out.println(player.getName() + " just paid " + property.getOwner().getName());
 			}
 
 		}
@@ -75,6 +82,7 @@ public class Game {
 		// Loop through all the players to see if any players are bankrupt.
 		for (Player player : players) {
 			if (player.isBankrupt()) {
+				System.out.println(player.getName() + "went bankrupt");
 				return true;
 			}
 		}

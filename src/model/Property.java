@@ -31,16 +31,20 @@ public class Property extends Tile {
 
 	public void buyProperty(Player player) {
 		owner = player;
+		player.payRent(price);
 	}
 
 	public void payRent(Player player, Board board) {
 		if (owner != player) {
+			
 			int rent = price;
-			// ***add logic if own the same colors later***
-			if(board.ownSameColor(owner, colour)) {
-				player.payRent(rent*=2);
+		
+			// Pay double remt if the owner own all properties of the same colour.
+			if (board.ownSameColor(owner, colour)) {
+				player.payRent(rent *= 2);
+			} else {
+				player.payRent(rent);
 			}
-			else player.payRent(rent);
 			owner.receiveRent(rent);
 		}
 	}
