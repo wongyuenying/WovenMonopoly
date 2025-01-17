@@ -38,7 +38,7 @@
 * I've created the abstract Tile class and have the subclass of Property and GO because it would be easier to create other types e.g. Chance cards, jail, stations more easily without modifying the original class, this allows the extensibility of the game.
 
 ## Class Diagram 
-![Class Diagram](path/to/wovenMonopoly.png)
+![Class Diagram](wovenMonopoly.png)
 
 ## Activity Diagram
-![Activity Diagram](path/to/activityDiagram.png)
+![Activity Diagram](activityDiagram.png)
