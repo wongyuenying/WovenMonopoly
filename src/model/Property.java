@@ -42,7 +42,6 @@ public class Property extends Tile {
 			// Pay double remt if the owner own all properties of the same colour.
 			if (board.ownSameColor(owner, colour)) {
 				player.payRent(rent *= 2);
-				System.out.println(player.getName() + " pays " + owner.getName() + "doubled for " + rent);
 			} else {
 				player.payRent(rent);
 			}

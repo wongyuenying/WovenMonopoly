@@ -8,7 +8,7 @@ import model.Go;
 import model.Player;
 import model.Property;
 
-// Manages the flow of the game
+// This class manages the flow of the game
 public class Game {
 	private List<Player> players;
 	private Board board;
@@ -27,11 +27,9 @@ public class Game {
 		while (!isGameOver()) {
 			for (Player player : players) {
 				playTurn(player);
-				System.out.println(player.getName() + ": " + player.getMoney());
 
 				// Check is the player bankrupt after each turn, end if it is.
 				if (isGameOver()) {
-					System.out.println("end game now");
 					break;
 				}
 			}
@@ -47,13 +45,9 @@ public class Game {
 		int roll = dice.roll();
 		player.move(roll, board.getBoardSize());
 
-		System.out.println(player.getName() + " old position: " + initialPosition);
-		System.out.println(player.getName() + " new position: " + player.getPosition());
-
 		// Check if the player pass Go and receive $1 if so
 		if (player.getPosition() < initialPosition) {
 			player.receiveRent(1);
-			System.out.println("Player " + player.getName() + "just passed Go.");
 		}
 
 		// store the tile that the player stepped on as an object first
@@ -68,14 +62,11 @@ public class Game {
 			// to buy it.
 			if (!property.isOwned() && player.getMoney() >= property.getPrice()) {
 				property.buyProperty(player);
-				System.out.println(player.getName() + " just bought " + property.getName());
 			}
 
 			// Pay rental if the property is not owned by the player
 			else if (property.isOwned() && property.getOwner() != player) {
 				property.rentalTransaction(player, board);
-
-				System.out.println(player.getName() + " just paid " + property.getOwner().getName());
 			}
 
 		}
@@ -86,7 +77,6 @@ public class Game {
 		// Loop through all the players to see if any players are bankrupt.
 		for (Player player : players) {
 			if (player.isBankrupt()) {
-				System.out.println(player.getName() + " went bankrupt");
 				return true;
 			}
 		}
@@ -137,7 +127,7 @@ public class Game {
 			} else if (currentTile instanceof Go) {
 				positionName = "GO";
 			}
-			System.out.println(player.getName() + ": " + player.getMoney() + ", Finishes on: " + positionName);
+			System.out.println(player.getName() + ": $" + player.getMoney() + ", Finishes on: " + positionName);
 		}
 
 	}

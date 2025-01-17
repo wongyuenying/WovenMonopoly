@@ -20,6 +20,7 @@ public class Loader {
 			});
 
 		} catch (IOException e) {
+			System.out.println("Cannot read the board file, please double check is it in the same directory.");
 			e.printStackTrace();
 		}
 		return null;
@@ -35,6 +36,7 @@ public class Loader {
 			});
 
 		} catch (IOException e) {
+			System.out.println("Cannot read the roll file, please double check is it in the same directory.");
 			e.printStackTrace();
 		}
 
