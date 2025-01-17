@@ -32,10 +32,10 @@
 ## Testing:
 - To use other rolls files, change the file name in Main.java when creating the dice, e,g,: Dice dice = new Dice("otherRolls.json");
 
-##Design decisions:
+## Design decisions:
 * The codes are written by following the SOLID principles so that the code will be more modular, organized, readable, and extensible.
 * Each functions has only a single responsibility so that it will be more clean and reusable.
-* I've created the abstract Tile class and have the subclass of Property and GO because it would be easier to create other types e.g. Chance cards, jail, stations more easily without modifying the original class, this allows the extensibility of the game.
+* I've created the abstract Tile class and have the subclass of Property and GO because it would be easier to create other types e.g. Chance cards, jail, stations without modifying the original class, this allows the extensibility of the game.
 
 ## Class Diagram 
 ![Class Diagram](wovenMonopoly.png)
